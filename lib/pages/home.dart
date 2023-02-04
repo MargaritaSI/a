@@ -9,7 +9,15 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  List todo_list = [];
+  List todolist = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    todolist.addAll(['Buy milk', 'Wash dishes', 'Buy coffee']);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +28,36 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: ListView.builder(
-          itemCount: todo_list.length,
+          itemCount: todolist.length,
           itemBuilder: (BuildContext context, int index) {
-            return Dismissible(
-                key: Key(todo_list[index]),
-                child: Card(
-                  child: ListTile(title: Text(todo_list[index])),
-                )
+            //try {
+              return Dismissible(
+                  key: Key('$todolist[index]-$index'),
+                  child: Card(
+                    child: ListTile(
+                        title: Text(todolist[index]),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete_sweep,
+                          color: Colors.deepOrangeAccent
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            todolist.removeAt(index);
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  onDismissed: (direction) {
+                    //if (direction == DismissDirection.endToStart)
+                    setState(() {
+                      todolist.removeAt(index);
+                    });
+                  },
+            //  } catch (e, s) {
+            //   print(s);
+            // }
             );
           }
       )
