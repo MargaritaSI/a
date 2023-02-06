@@ -8,7 +8,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
+  late String _userToDO;
   List todolist = [];
 
   @override
@@ -60,7 +60,35 @@ class _HomeState extends State<Home> {
             // }
             );
           }
-      )
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.greenAccent,
+        onPressed: () {
+          showDialog(context: context, builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Add element'),
+              content: TextField(
+                onChanged: (String value) {
+                  _userToDO = value;
+                },
+              ),
+              actions: [
+                ElevatedButton(onPressed: () {
+                  setState(() {
+                    todolist.add(_userToDO);
+                  });
+
+                  Navigator.of(context).pop();
+                }, child: Text('add '))
+              ],
+            );
+          });
+        },
+        child: Icon(
+          Icons.add_box,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }
