@@ -14,7 +14,9 @@ class MainScreen extends StatelessWidget {
         body: Column(
           children: [
             Text('Main Screen', style: TextStyle(color: Colors.white),),
-            ElevatedButton(onPressed: () {}, child: Text('Go next'))
+            ElevatedButton(onPressed: () {
+              Navigator.pushReplacementNamed(context, '/todo');
+            }, child: Text('Go next'))
           ],
         )
     );
